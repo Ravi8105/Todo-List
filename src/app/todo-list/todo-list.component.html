@@ -1,0 +1,29 @@
+<div class="body">
+<div class="container mt-2 d-flex justify-content-center align-items-center flex-column">
+  <h2>Todo List</h2>
+  <div class="input-group mb-3">
+    <input [(ngModel)]="newTodo" class="form-control" placeholder="Add a new todo" />
+    <div class="input-group-append">
+      <button (click)="addTodo()" class="btn btn-primary">Add</button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="todos.length > 0; else noTodos">
+    <div class="card w-30" *ngFor="let todo of todos; let i = index">
+      <div [ngClass]="{'card-body': true, 'done': todo.done, 'd-flex': true, 'justify-content-between': true, 'align-items-center': true}">
+        <div class="form-check" style="margin-right: 5px;">
+          <input class="form-check-input" (change)="toggleDone(i)" type="checkbox" [checked]="todo.done" id="{{i}}">
+        </div>
+        <span [ngClass]="{'strikethrough': todo.done, 'todo-text': true}">{{ todo.text }}</span>
+        <div>
+          <button (click)="removeTodo(i)" class="btn btn-danger btn-sm">Remove</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noTodos>
+    <p>No todos stored...</p>
+  </ng-template>
+</div>
+</div>
